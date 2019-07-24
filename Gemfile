@@ -15,6 +15,8 @@ gem 'puma', '~> 3.11'
 
 gem 'devise_token_auth'
 
+gem 'apartment'
+
 # gem 'figaro'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
