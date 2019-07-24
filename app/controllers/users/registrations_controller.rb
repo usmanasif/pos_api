@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    @current_company.users.create(email: params[:registration][:email], password: params[:registration][:password])
+    @current_company.users.create!(email: params[:registration][:email], password: params[:registration][:password])
   end
 
   # GET /resource/edit
