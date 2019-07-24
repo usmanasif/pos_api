@@ -1,5 +1,4 @@
 class Company < ApplicationRecord
-  has_many :users
   validates :subdomain, :name, presence: true
 
   after_create :create_tenant

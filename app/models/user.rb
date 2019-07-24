@@ -5,5 +5,4 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
  include DeviseTokenAuth::Concerns::User
- belongs_to :company
 end
