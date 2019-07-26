@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  discount: 
+  adjustment: 
+  total: 9.99
+
+two:
+  discount: 
+  adjustment: 
+  total: 9.99
