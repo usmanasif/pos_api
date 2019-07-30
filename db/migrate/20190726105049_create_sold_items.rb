@@ -4,6 +4,7 @@ class CreateSoldItems < ActiveRecord::Migration[5.2]
       t.decimal :unit_price
       t.decimal :quantity
       t.json :discount
+      t.references(:invoice, foreign_key: true)
 
       t.timestamps
     end
