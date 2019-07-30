@@ -48,8 +48,6 @@ Apartment.configure do |config|
   #   end
   # end
 
-  config.tenant_names = lambda { Company.pluck :database }
-
   # PostgreSQL:
   #   Specifies whether to use PostgreSQL schemas or create a new database per Tenant.
   #
