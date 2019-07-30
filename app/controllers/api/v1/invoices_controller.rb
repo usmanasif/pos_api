@@ -1,4 +1,5 @@
 class Api::V1::InvoicesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_invoice, only: [:show]
   before_action :all_invoices, only:[:index]
   
@@ -11,8 +12,7 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def create
-    u = User.first
-    @invoice = u.invoices.new(invoice_params)
+    @invoice = current_user.invoices.new(invoice_params)
     if @invoice.save
       render json:"invoice created successfully", status: :created
     else
