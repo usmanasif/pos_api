@@ -11,7 +11,7 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def create
-    @invoice = User.first.invoices.new(invoice_params)
+    @invoice = current_user.invoices.new(invoice_params)
     if @invoice.save
       render json:"invoice created successfully", status: :created
     else
