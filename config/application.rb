@@ -33,7 +33,18 @@ module PosApi
             methods: [:get, :post, :delete, :put, :patch, :options, :head]
         end
       end
+    elsif Rails.env == "production"
+      config.middleware.insert_before 0, Rack::Cors do
+        allow do
+          origins 'https://hidden-hollows-36329.herokuapp.com'
+          resource '*',
+            headers: :any,
+            expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+            methods: [:get, :post, :delete, :put, :patch, :options, :head]
+        end
+      end
     end
+
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
