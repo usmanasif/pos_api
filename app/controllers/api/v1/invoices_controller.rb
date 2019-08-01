@@ -1,10 +1,9 @@
 class Api::V1::InvoicesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_invoice, only: [:show]
-  before_action :all_invoices, only:[:index]
-  
-  def index 
-    render json: @invoices 
+
+  def index
+    render json: all_invoices
   end
 
   def show
@@ -27,11 +26,8 @@ class Api::V1::InvoicesController < ApplicationController
       @invoice = Invoice.find(params[:id])
     end
 
-    def all_invoices 
-      @invoices = []
-      Invoice.all.each do |i| 
-        @invoices << i.attributes.merge("sold_items":i.sold_items)
-      end
+    def all_invoices
+      SoldItem.joins(:invoice)
     end
 
     def invoice_params
