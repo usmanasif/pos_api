@@ -30,4 +30,3 @@ production:
   database: pos_production
   username: <%= ENV['PG_USERNAME'] %>
   password: <%= ENV['PG_PASSWORD'] %>
-  schema_search_path: "public,shared_extensions"
