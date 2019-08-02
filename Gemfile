@@ -18,6 +18,8 @@ gem 'devise_token_auth'
 gem 'apartment'
 gem 'ancestry'
 
+gem 'will_paginate', '~> 3.1.1'
+
 # gem 'figaro'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
