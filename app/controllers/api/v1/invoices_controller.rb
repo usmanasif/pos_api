@@ -31,6 +31,6 @@ class Api::V1::InvoicesController < ApplicationController
     end
 
     def invoice_params
-      params.require(:invoice).permit(:total, discount:[:discount,:discount_reason],adjustment:[:adjustment,:adjustment_reason] , sold_items_attributes: [:unit_price,:quantity,discount:[:discount,:discount_reason]])
+      params.require(:invoice).permit(:total, discount:[:discount,:discount_reason],:adjustment, sold_items_attributes: [:unit_price,:quantity,discount:[:discount,:discount_reason]])
     end
 end
