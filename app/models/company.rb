@@ -4,7 +4,7 @@ class Company < ApplicationRecord
   after_create :create_tenant
   after_destroy :drop_tenant
 
-  self.per_page = 8
+  self.per_page = 5
 
   private
 

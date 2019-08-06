@@ -3,7 +3,7 @@ class CompaniesController < ApplicationController
   before_action :authenticate_admin!
   # GET /companies
   def index
-    @companies = Company.paginate(page:params[:page])
+    @companies = Company.paginate(page:params[:page]).order(:id)
     render json: {companies: @companies, current_page:@companies.current_page, total_pages:@companies.total_pages}
   end
 
