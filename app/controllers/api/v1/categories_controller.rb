@@ -8,7 +8,7 @@ class Api::V1::CategoriesController < ApplicationController
   def create
     category = Category.new(category_params)
     if category.save
-      render json:"invoice created successfully", status: :created
+      render json:"Category created successfully", status: :created
     else
       render json: 'Something went wrong, please make sure the category name is unique', status: :unprocessable_entity
     end
@@ -16,7 +16,7 @@ class Api::V1::CategoriesController < ApplicationController
 
   private
   def category_params
-    params.require(:category).permit(:name, :parent_id)
+    params.permit(:name, :parent_id)
   end
   
 end
