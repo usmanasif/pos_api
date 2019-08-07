@@ -1,6 +1,7 @@
 class Invoice < ApplicationRecord
 	belongs_to :creator, class_name: "User"
 	has_many :sold_items
+  belongs_to :discount
   after_create :update_item_quantities
 
 	accepts_nested_attributes_for :sold_items
