@@ -4,12 +4,13 @@ Rails.application.routes.draw do
 
   mount_devise_token_auth_for 'Admin', at: 'admin_auth'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
- namespace :api do
-  namespace :v1 do
-    resources :invoices, only:[:index, :show, :create]
-    resources :categories, only: [:index, :create]
-    resources :items, only:[:index, :create]
+  namespace :api do
+    namespace :v1 do
+      resources :invoices, only:[:index, :show, :create]
+      resources :categories, only: [:index, :create]
+      resources :items, only:[:index, :create]
+      resources :discounts, only:[:index]
+    end
   end
- end
- resources :companies
+  resources :companies
 end
