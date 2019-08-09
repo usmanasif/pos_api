@@ -14,6 +14,10 @@ class Api::V1::ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    Item.find(params[:id]).destroy!
+  end
+
   private
   def item_params
     params.permit(:name, :category_id, :code, :current_stock, :sale_price)
