@@ -1,8 +1,13 @@
 class Api::V1::ItemsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_item, only: [:update, :destroy]
 
   def index
     render json: Item.all, :include => {:category => {:only => [:name, :id]}}
+  end
+
+  def update
+    @item.update(item_params)
   end
 
   def create
@@ -15,12 +20,16 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def destroy
-    Item.find(params[:id]).destroy!
+    @item.destroy!
   end
 
   private
   def item_params
     params.permit(:name, :category_id, :code, :current_stock, :sale_price)
+  end
+
+  def set_item
+    @item = Item.find(params[:id])
   end
 
 end
