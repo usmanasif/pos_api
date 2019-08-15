@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :invoices, only:[:index, :show, :create]
       resources :categories, only: [:index, :create]
-      resources :items, only:[:index, :create]
+      resources :items, only:[:index, :create, :destroy]
       resources :discounts, only:[:index]
     end
   end
