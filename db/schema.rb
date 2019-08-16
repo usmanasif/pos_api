@@ -59,11 +59,11 @@ ActiveRecord::Schema.define(version: 2019_08_05_122606) do
 
   create_table "invoices", force: :cascade do |t|
     t.json "discount"
-    t.json "adjustment"
+    t.decimal "adjustment"
     t.decimal "total"
+    t.bigint "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "creator_id"
     t.bigint "discount_id"
   end
 
@@ -82,9 +82,9 @@ ActiveRecord::Schema.define(version: 2019_08_05_122606) do
     t.decimal "unit_price"
     t.decimal "quantity"
     t.json "discount"
+    t.bigint "invoice_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "invoice_id"
     t.bigint "item_id"
     t.index ["invoice_id"], name: "index_sold_items_on_invoice_id"
   end

@@ -1,5 +1,5 @@
 class Api::V1::InvoicesController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_invoice, only: [:show]
 
   def index
@@ -7,7 +7,7 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def show
-    render json:(@invoice.attributes.merge("sold_items":@invoice.sold_items))
+    render json:(@invoice.attributes.merge("sold_items":@invoice.sold_items.map{|sold_item| sold_item.attributes.merge("item_name": sold_item.item.name)},"creator_name": @invoice.creator.email,"discount": @invoice.discount))
   end
 
   def create
