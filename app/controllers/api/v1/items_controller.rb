@@ -4,7 +4,8 @@ class Api::V1::ItemsController < ApplicationController
   before_action :get_items, only: [:index]
 
   def index
-    render json: [ {total: Item.count}, @items.paginate(page: params[:page], per_page: params[:per_page]).to_json(include: {category: {only: [:name, :id]}})]
+    render json: [ { total: Item.count}, JSON.parse(@items.paginate(page: params[:page], 
+                     per_page: params[:per_page]).to_json(include: {category: {only: [:name, :id]}})) ]
   end
 
   def update
