@@ -28,7 +28,7 @@ class Api::V1::ItemsController < ApplicationController
   private
   def get_items
     if params[:category_id]
-      @items = Item.where(category_id: params[:category_id])
+      @items = Item.where(category_id: Category.find(params[:category_id]).subtree_ids)
     else
       @items = Item.all
     end
