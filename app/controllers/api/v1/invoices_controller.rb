@@ -7,7 +7,7 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def show
-    render json:(@invoice.attributes.merge("sold_items":@invoice.sold_items))
+    render json: (@invoice.attributes.merge("sold_items":@invoice.sold_items.joins(:item).select('sold_items.*,items.name'),"discount": @invoice.discount))
   end
 
   def create
@@ -23,9 +23,8 @@ class Api::V1::InvoicesController < ApplicationController
   private
 
     def set_invoice
-      @invoice = Invoice.find(params[:id])
+      @invoice = Invoice.joins(:creator).select("invoices.*,users.email as creator_name").find_by("invoices.id=?",params[:id])
     end
-
     def all_invoices
       SoldItem.joins(:invoice)
     end
