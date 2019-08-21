@@ -26,7 +26,8 @@ class Api::V1::InvoicesController < ApplicationController
       @invoice = Invoice.joins(:creator).select("invoices.*,users.email as creator_name").find_by("invoices.id=?",params[:id])
     end
     def all_invoices
-      SoldItem.joins(:invoice)
+      collection = InvoicesCollection.new(params)
+      collection.meta
     end
 
     def invoice_params

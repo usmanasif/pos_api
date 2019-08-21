@@ -13,5 +13,5 @@ class Invoice < ApplicationRecord
       item.update_columns(current_stock: (item.current_stock - sold_quantity))
     end
   end
-
+  scope :today, -> {where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)}
 end
