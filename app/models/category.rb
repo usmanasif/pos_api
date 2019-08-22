@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
-  has_many :items
+  has_many :items, dependent: :destroy
   validates_uniqueness_of :name, if: Proc.new { |c| c.parent.present? && c.parent.children.pluck(:name).include?(c.name) }
   has_ancestry
 
