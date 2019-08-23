@@ -28,6 +28,7 @@ class InvoicesCollection < BaseCollection
     today_filter
     date_filter
     product_filter
+    selected_product_filter
   end
 
   def today_filter
@@ -40,6 +41,10 @@ class InvoicesCollection < BaseCollection
 
   def product_filter
     filter {|relation| relation.joins(sold_items: :item).select('"items"."id", "items"."name", SUM("sold_items"."quantity") as "sold_quantity", SUM ("sold_items"."unit_price"*"sold_items"."quantity") as "total_sold_price"').group('"items"."id"')} if params[:by_product].present?
+  end
+
+  def selected_product_filter
+    filter {|relation| relation.joins(:sold_items).where("sold_items.item_id IN (#{params[:by_selected_products]})")} if params[:by_selected_products].present?
   end
 
 end
