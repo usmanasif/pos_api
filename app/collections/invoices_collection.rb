@@ -2,6 +2,7 @@ class InvoicesCollection < BaseCollection
   def meta
     return { products: results, total_pages: total_pages } if params[:by_product].present?
     return { total_count: total_count, total: total, selected_products: results, total_pages: total_pages } if params[:by_selected_products].present?
+    return { results: results } if params[:last_week_sales].present?
     { total_count: total_count, total: total, invoices: results, total_pages: total_pages }
   end
 
@@ -30,6 +31,7 @@ class InvoicesCollection < BaseCollection
     today_filter
     date_filter
     product_filter
+    last_week_sales_filter
   end
 
   def today_filter
@@ -43,4 +45,9 @@ class InvoicesCollection < BaseCollection
   def product_filter
     filter {|relation| relation.joins(sold_items: :item).select('"items"."id", "items"."name", SUM("sold_items"."quantity") as "quantity", SUM ("sold_items"."unit_price"*"sold_items"."quantity") as "total_sold_price"').group('"items"."id"')} if params[:by_product].present?
   end
+
+  def last_week_sales_filter
+    filter {|relation| relation.where(created_at: 1.week.ago.beginning_of_week..1.week.ago.end_of_week).select("sum(total) as total, created_at ::date").group("created_at::date")} if params[:last_week_sales].present?
+  end
+
 end
