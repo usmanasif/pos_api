@@ -1,5 +1,5 @@
 class Api::V1::InvoicesController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_invoice, only: [:show]
 
   def index
