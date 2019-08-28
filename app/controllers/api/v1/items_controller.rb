@@ -1,11 +1,9 @@
 class Api::V1::ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:update, :destroy]
-  before_action :get_items, only: [:index]
 
   def index
-    render json: [ { total: Item.count}, JSON.parse(@items.paginate(page: params[:page], 
-                     per_page: params[:per_page]).to_json(include: {category: {only: [:name, :id]}})) ]
+    render json: all_items
   end
 
   def update
@@ -26,13 +24,6 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   private
-  def get_items
-    if params[:category_id]
-      @items = Item.where(category_id: Category.find(params[:category_id]).subtree_ids)
-    else
-      @items = Item.all
-    end
-  end
 
   def item_params
     params.permit(:name, :category_id, :code, :current_stock, :sale_price)
@@ -40,6 +31,11 @@ class Api::V1::ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def all_items
+    collection = ItemsCollection.new(params)
+    collection.meta
   end
 
 end
