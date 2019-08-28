@@ -1,6 +1,6 @@
 class ItemsCollection < BaseCollection
   def meta
-    return { data: results } if params[:stock_by_category].present?
+    return { results: results } if params[:stock_by_category].present? || params[:sales_by_category].present?
 
     [ { total: total_count}, JSON.parse(results.to_json(include: {category: {only: [:name, :id]}})) ]
   end
@@ -17,6 +17,7 @@ class ItemsCollection < BaseCollection
   def ensure_filters
     by_category_filter
     stock_by_category_filter
+    sales_by_category_filter
   end
 
   def by_category_filter
@@ -25,6 +26,10 @@ class ItemsCollection < BaseCollection
 
   def stock_by_category_filter
     filter {|relation| relation.joins(:category).group("categories.name").select("sum(items.current_stock) as total, categories.name")} if params[:stock_by_category].present?
+  end
+
+  def sales_by_category_filter
+    filter {|relation| relation.joins(:sold_items, :category).group("categories.name").sum("sold_items.quantity*sold_items.unit_price")} if params[:sales_by_category].present?
   end
 
 end
