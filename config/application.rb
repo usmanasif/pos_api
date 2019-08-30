@@ -36,7 +36,7 @@ module PosApi
     elsif Rails.env == "production"
       config.middleware.insert_before 0, Rack::Cors do
         allow do
-          origins 'https://hidden-hollows-36329.herokuapp.com'
+          origins 'https://devsinc-pos-frontend.herokuapp.com'
           resource '*',
             headers: :any,
             expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
