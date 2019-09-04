@@ -11,7 +11,6 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def create
-    byebug
     item = Item.new(item_params)
     if item.save
       render json:"Item created successfully", status: :created
