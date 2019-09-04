@@ -11,6 +11,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def create
+    byebug
     item = Item.new(item_params)
     if item.save
       render json:"Item created successfully", status: :created
@@ -26,7 +27,7 @@ class Api::V1::ItemsController < ApplicationController
   private
 
   def item_params
-    params.permit(:name, :category_id, :code, :current_stock, :sale_price)
+    params.permit(:name, :category_id, :code, :current_stock, :sale_price, :discount)
   end
 
   def set_item
