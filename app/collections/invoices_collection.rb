@@ -32,20 +32,10 @@ class InvoicesCollection < BaseCollection
     date_filter
     product_filter
     last_week_sales_filter
-    status_filter
-    order_filter
   end
 
   def today_filter
     filter {|relation| relation.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)} if params[:today].present?
-  end
-
-  def order_filter
-    filter {|relation| relation.order("created_at #{params[:order]}")} if params[:order].present?
-  end
-
-  def status_filter
-    filter {|relation| relation.where(status: params[:status])} if params[:status].present?
   end
 
   def date_filter
