@@ -17,7 +17,6 @@ class Api::V1::InvoicesController < ApplicationController
       if @invoice.update(invoice_params)
         render json: "invoice created successfully", status: :created
       else
-        puts "0000000000000"*1000
         render json: @invoice.errors, status: :unprocessable_entity
       end
     else
