@@ -37,5 +37,4 @@ class Api::V1::ItemsController < ApplicationController
     collection = ItemsCollection.new(params)
     collection.meta
   end
-
 end

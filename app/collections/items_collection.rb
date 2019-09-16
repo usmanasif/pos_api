@@ -10,18 +10,24 @@ class ItemsCollection < BaseCollection
   def relation
     @relation ||= Item.all
   end
+
   def total_count
     results.count
   end
 
   def ensure_filters
+    search_items
     by_category_filter
     stock_by_category_filter
     sales_by_category_filter
   end
 
+  def search_items
+    filter {|relation| relation.where('name LIKE ?', '%' + params[:item] + '%')} if params[:item].present?
+  end
+
   def by_category_filter
-      filter {|relation| relation.where(category_id: Category.find(params[:category_id]).subtree_ids)} if params[:category_id].present?
+    filter {|relation| relation.where(category_id: Category.find(params[:category_id]).subtree_ids)} if params[:category_id].present?
   end
 
   def stock_by_category_filter

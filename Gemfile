@@ -20,6 +20,9 @@ gem 'ancestry'
 
 gem 'will_paginate', '~> 3.1.1'
 
+gem 'ransack'
+
+
 # gem 'figaro'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
