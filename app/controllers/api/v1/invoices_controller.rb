@@ -15,18 +15,24 @@ class Api::V1::InvoicesController < ApplicationController
       @invoice = current_user.invoices.find(params[:invoice_id])
       @invoice.sold_items.destroy_all
       if @invoice.update(invoice_params)
-        render json: "invoice created successfully", status: :created
+        render json: @invoice, status: :created
       else
         render json: @invoice.errors, status: :unprocessable_entity
       end
     else
       @invoice = current_user.invoices.new(invoice_params)
       if @invoice.save
-        render json: "invoice created successfully", status: :created
+        render json: @invoice, status: :created
       else
         render json: @invoice.errors, status: :unprocessable_entity
       end
     end
+  end
+
+  def destroy
+    @invoice = Invoice.find params[:id]
+    @invoice.destroy!
+    render json: "Invoice Deleted"
   end
 
   private
