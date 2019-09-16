@@ -47,7 +47,7 @@ class InvoicesCollection < BaseCollection
   end
 
   def last_week_sales_filter
-    filter {|relation| relation.where(created_at: 1.week.ago.beginning_of_week..1.week.ago.end_of_week).select("sum(total) as total, created_at ::date").group("created_at::date")} if params[:last_week_sales].present?
+    filter {|relation| relation.where("created_at > ?", Time.now-7.days).select("sum(total) as total, created_at ::date").group("created_at::date")} if params[:last_week_sales].present?
   end
 
 end
