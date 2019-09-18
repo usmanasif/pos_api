@@ -3,7 +3,7 @@ class Api::V1::InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show]
 
   def index
-    render json: all_invoices
+    render json: all_invoices.to_json(:include => [:sold_items => {:include => [:item]}])
   end
 
   def show

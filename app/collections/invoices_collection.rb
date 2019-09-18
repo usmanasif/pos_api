@@ -23,10 +23,10 @@ class InvoicesCollection < BaseCollection
   end
 
   def relation
-    return @relation ||= SoldItem.joins(:item).where("sold_items.item_id IN (#{params[:by_selected_products]})").select("sold_items.*,items.name") if params[:by_selected_products].present?
+    return @relation ||= Invoice.joins(sold_items: :item).where("sold_items.item_id IN (#{params[:by_selected_products]})").select("sold_items.*,items.name, invoices.discount_id") if params[:by_selected_products].present?
     @relation ||= Invoice.all
   end
-
+  
   def ensure_filters
     today_filter
     date_filter
