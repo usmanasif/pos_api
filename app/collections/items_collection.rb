@@ -35,7 +35,7 @@ class ItemsCollection < BaseCollection
   end
 
   def sales_by_category_filter
-    filter {|relation| relation.joins(:sold_items, :category).group("categories.name").sum("(sold_items.quantity*sold_items.unit_price) - (sold_items.quantity*sold_items.unit_price)*sold_items.discount/100")} if params[:sales_by_category].present?
+    filter {|relation| relation.joins(:sold_items, :category).group("categories.name").sum("ROUND((sold_items.quantity*sold_items.unit_price) - ((sold_items.quantity*sold_items.unit_price)*sold_items.discount/100), 2)")} if params[:sales_by_category].present?
   end
 
 end
