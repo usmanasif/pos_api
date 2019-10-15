@@ -10,6 +10,9 @@ Rails.application.routes.draw do
       resources :categories, only: [:index, :create, :destroy]
       resources :items, only:[:index, :create, :destroy, :update]
       resources :discounts, only:[:index]
+      resources :vendors, only:[:index, :create, :update, :destroy]
+      resources :transactions, only:[:index, :create, :update, :destroy]
+      resources :ledgers, only:[:index, :create, :update]
     end
   end
   resources :companies

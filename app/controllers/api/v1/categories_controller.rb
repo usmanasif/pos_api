@@ -20,12 +20,12 @@ class Api::V1::CategoriesController < ApplicationController
   end
 
   private
+  
   def get_category
-      @category = Category.find(params[:id])
-    end
+    @category = Category.find(params[:id])
+  end
 
   def category_params
     params.permit(:name, :parent_id)
   end
-  
 end

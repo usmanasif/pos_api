@@ -1,11 +1,11 @@
 class Invoice < ApplicationRecord
-	belongs_to :creator, class_name: "User"
-	has_many :sold_items, dependent: :destroy
+  belongs_to :creator, class_name: "User"
+  has_many :sold_items, dependent: :destroy
   belongs_to :discount, optional: true
   after_create :update_item_quantities
   after_update :update_item_quantities
 
-	accepts_nested_attributes_for :sold_items
+  accepts_nested_attributes_for :sold_items
 
   enum status: [:drafted, :completed]
 
