@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_17_085201) do
+ActiveRecord::Schema.define(version: 2019_10_15_125526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,11 +59,11 @@ ActiveRecord::Schema.define(version: 2019_09_17_085201) do
 
   create_table "invoices", force: :cascade do |t|
     t.json "discount"
-    t.json "adjustment"
+    t.decimal "adjustment"
     t.decimal "total"
+    t.bigint "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "creator_id"
     t.bigint "discount_id"
     t.integer "status", default: 0
   end
@@ -80,15 +80,36 @@ ActiveRecord::Schema.define(version: 2019_09_17_085201) do
     t.index ["category_id"], name: "index_items_on_category_id"
   end
 
+  create_table "ledgers", force: :cascade do |t|
+    t.integer "total_amount"
+    t.integer "due_amount"
+    t.string "account_type"
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "vendor_id"
+  end
+
   create_table "sold_items", force: :cascade do |t|
     t.decimal "unit_price"
     t.decimal "quantity"
+    t.bigint "invoice_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "invoice_id"
     t.bigint "item_id"
     t.integer "discount", default: 0
     t.index ["invoice_id"], name: "index_sold_items_on_invoice_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer "debit"
+    t.integer "credit"
+    t.string "details"
+    t.datetime "transaction_date"
+    t.integer "ledger_id"
+    t.integer "vendor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -105,6 +126,17 @@ ActiveRecord::Schema.define(version: 2019_09_17_085201) do
     t.integer "role", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "vendors", force: :cascade do |t|
+    t.string "name"
+    t.string "phone_number"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "code"
+    t.string "store_name"
+    t.string "details"
   end
 
   add_foreign_key "invoices", "users", column: "creator_id"
