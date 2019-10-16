@@ -1,4 +1,5 @@
 class Api::V1::LedgersController < ApplicationController
+  before_action :authenticate_user!
   before_action :get_ledger, only:[:update]
 
   def index
