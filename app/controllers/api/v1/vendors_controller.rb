@@ -1,4 +1,5 @@
 class Api::V1::VendorsController < ApplicationController
+  before_action :authenticate_user!
   before_action :get_vendor, only:[:destroy, :update]
 
   def index
