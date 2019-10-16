@@ -3,7 +3,7 @@ class Api::V1::VendorsController < ApplicationController
   before_action :get_vendor, only:[:destroy, :update]
 
   def index
-    render json: Vendor.all
+    render json: all_vendors
   end
 
   def create
@@ -31,5 +31,10 @@ class Api::V1::VendorsController < ApplicationController
 
   def vendor_params
     params.permit(:code, :name, :store_name, :phone_number, :address)
+  end
+
+  def all_vendors
+    collection = VendorsCollection.new(params)
+    collection.meta
   end
 end
