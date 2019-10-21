@@ -3,7 +3,8 @@ class Api::V1::TransactionsController < ApplicationController
   before_action :get_transaction, only:[:destroy, :update]
 
   def index
-    render json: Transaction.all.to_json(include: {vendor: {only: [:name, :store_name]}})
+    byebug
+    render json: all_transactions
   end
 
   def create
@@ -31,5 +32,10 @@ class Api::V1::TransactionsController < ApplicationController
 
   def transaction_params
     params.permit(:amount, :transaction_code, :details, :transaction_date, :vendor_id, :ledger_id)
+  end
+
+  def all_transactions
+    collection = TransactionsCollection.new(params)
+    collection.meta
   end
 end
