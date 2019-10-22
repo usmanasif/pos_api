@@ -3,7 +3,6 @@ class Api::V1::TransactionsController < ApplicationController
   before_action :get_transaction, only:[:destroy, :update]
 
   def index
-    byebug
     render json: all_transactions
   end
 
