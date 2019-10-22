@@ -17,6 +17,11 @@ class TransactionsCollection < BaseCollection
     filter_transactions_by_vendor_name
     filter_transactions_by_store_name
     filter_transactions_by_date
+    filter_vendor_transactions
+  end
+
+  def filter_vendor_transactions
+    filter{|relation| relation.where(vendor_id: params[:vendorID])} if params[:vendorID].present?
   end
 
   def filter_transactions_by_vendor_name
