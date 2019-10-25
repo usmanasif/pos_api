@@ -18,6 +18,18 @@ class TransactionsCollection < BaseCollection
     filter_transactions_by_store_name
     filter_transactions_by_date
     filter_vendor_transactions
+    filter_customer_transactions
+    filter_transactions_by_account_type
+  end
+
+  
+
+  def filter_transactions_by_account_type
+    filter {|relation| relation.where(account_type: params[:account_type])} if params[:account_type].present?
+  end
+
+  def filter_customer_transactions
+    filter{|relation| relation.where(customer_id: params[:customerID])} if params[:customerID].present?
   end
 
   def filter_vendor_transactions
