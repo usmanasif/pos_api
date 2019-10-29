@@ -1,6 +1,6 @@
 class TransactionsCollection < BaseCollection
   def meta
-    return { results: [ { total: total_count}, JSON.parse(results.to_json(include: {vendor: {only: [:name, :store_name]}})) ]}
+    return { results: [ { total: total_count}, JSON.parse(results.to_json(include: {vendor: {only: [:name, :store_name]}, customer: {only: [:name]} }))]}
   end
 
   private
