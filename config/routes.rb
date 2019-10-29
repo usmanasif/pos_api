@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'products/index'
   # devise_for :users
   mount_devise_token_auth_for 'User', at: 'auth'
 
@@ -13,7 +14,8 @@ Rails.application.routes.draw do
       resources :vendors, only:[:index, :create, :update, :destroy]
       resources :customers, only:[:index, :create, :update, :destroy]
       resources :transactions, only:[:index, :create, :update, :destroy]
-      resources :ledgers, only:[:index, :create, :update]
+      resources :ledgers, only:[:index, :create, :update, :destroy]
+      resources :products, only:[:index, :create, :update, :destroy]
     end
   end
   resources :companies
