@@ -50,14 +50,6 @@ ActiveRecord::Schema.define(version: 2019_10_29_084822) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "customers", force: :cascade do |t|
-    t.string "name"
-    t.string "phone_number"
-    t.string "address"
-    t.string "code"
-    t.string "details"
-  end
-
   create_table "discounts", force: :cascade do |t|
     t.float "rate"
     t.string "detail"
@@ -131,7 +123,6 @@ ActiveRecord::Schema.define(version: 2019_10_29_084822) do
     t.datetime "updated_at", null: false
     t.string "transaction_code"
     t.string "account_type"
-    t.string "string"
     t.string "transaction_category"
     t.string "customer_id"
   end

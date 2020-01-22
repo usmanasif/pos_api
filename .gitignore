@@ -30,3 +30,5 @@
 
 # ignore local env file
 .env
+
+.rubocop.yml
