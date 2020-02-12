@@ -15,6 +15,7 @@ gem 'puma', '~> 3.11'
 
 gem 'devise_token_auth'
 
+gem 'active_model_serializers', '~> 0.10.0'
 gem 'apartment'
 gem 'ancestry'
 

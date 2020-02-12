@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources :transactions, only:[:index, :create, :update, :destroy]
       resources :ledgers, only:[:index, :create, :update, :destroy]
       resources :products, only:[:index, :create, :update, :destroy]
+      resources :sizes, only: :index
     end
   end
   resources :companies

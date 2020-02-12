@@ -3,7 +3,14 @@ class Api::V1::ItemsController < ApplicationController
   before_action :set_item, only: [:update, :destroy]
 
   def index
-    render json: all_items
+    collection = ItemSizeCollection.new(params)
+    total_records = collection.meta
+    items = Item.all.includes(:category, item_sizes: :size)
+
+    render json: {
+      total: total_records,
+      items: ActiveModel::SerializableResource.new(items, each_serializer: Api::V1::ItemSerializer)
+    }
   end
 
   def update
@@ -13,7 +20,7 @@ class Api::V1::ItemsController < ApplicationController
   def create
     item = Item.new(item_params)
     if item.save
-      render json:"Item created successfully", status: :created
+      render json: 'Item created successfully', status: :created
     else
       render json: 'Something went wrong! Please try again', status: :unprocessable_entity
     end
@@ -26,7 +33,7 @@ class Api::V1::ItemsController < ApplicationController
   private
 
   def item_params
-    params.permit(:name, :category_id, :code, :current_stock, :sale_price, :discount)
+    params.permit(:name, :category_id, :item_sizes_attributes =>  [:code, :quantity, :price, :discount, :size_attributes => [:size_type]])
   end
 
   def set_item

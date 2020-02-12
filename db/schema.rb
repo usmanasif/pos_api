@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_29_084822) do
+ActiveRecord::Schema.define(version: 2020_02_06_122701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,15 +68,24 @@ ActiveRecord::Schema.define(version: 2019_10_29_084822) do
     t.integer "status", default: 0
   end
 
+  create_table "item_sizes", force: :cascade do |t|
+    t.bigint "item_id"
+    t.bigint "size_id"
+    t.float "price"
+    t.string "code"
+    t.integer "quantity"
+    t.integer "discount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_item_sizes_on_item_id"
+    t.index ["size_id"], name: "index_item_sizes_on_size_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "name"
-    t.string "code"
-    t.integer "current_stock"
-    t.float "sale_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "category_id"
-    t.integer "discount"
     t.index ["category_id"], name: "index_items_on_category_id"
   end
 
@@ -98,6 +107,12 @@ ActiveRecord::Schema.define(version: 2019_10_29_084822) do
     t.string "details"
     t.integer "vendor_id"
     t.integer "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sizes", force: :cascade do |t|
+    t.string "size_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -155,5 +170,7 @@ ActiveRecord::Schema.define(version: 2019_10_29_084822) do
   end
 
   add_foreign_key "invoices", "users", column: "creator_id"
+  add_foreign_key "item_sizes", "items"
+  add_foreign_key "item_sizes", "sizes"
   add_foreign_key "sold_items", "invoices"
 end
